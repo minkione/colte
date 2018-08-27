@@ -143,3 +143,25 @@ INSERT INTO `customers` VALUES
 ('910540000000998', 0, 0, 10000000, 500, 1, 1, '0000005'),
 ('910540000000999', 0, 0, 10000000, 500, 1, 1, '0000006')
 ;
+
+DROP TABLE if EXISTS `hosts`;
+CREATE TABLE `hosts` (
+  hostID BIGINT NOT NULL AUTO_INCREMENT,
+  hostname VARBINARY(128) NOT NULL,
+  ipAddress VARBINARY(16) NOT NULL,
+  PRIMARY KEY (hostID)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Intentionally do not define a primary key for flowlogs to allow insert
+-- without needing to update an index.
+DROP TABLE IF EXISTS `flowlogs`;
+CREATE TABLE `flowlogs` (
+  `intervalStart` TIMESTAMP NOT NULL,
+  `intervalStop` TIMESTAMP NOT NULL,
+  `addressA` VARBINARY(16) NOT NULL,
+  `addressB` VARBINARY(16) NOT NULL,
+  `hostA` BIGINT NOT NULL,
+  `hostB` BIGINT NOT NULL,
+  `bytesAtoB` BIGINT NOT NULL,
+  `bytesBtoA` BIGINT NOT NULL
+) ENGINE=Aria DEFAULT CHARSET=latin1;
